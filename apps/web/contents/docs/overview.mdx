@@ -1,0 +1,42 @@
+---
+title: PawQL ORM
+---
+
+# PawQL
+
+PawQL is a runtime-first, type-safe ORM and SQL query builder for TypeScript. Define schemas with JavaScript objects and get inferred query types without a schema language, code generation, or a build step.
+
+It supports PostgreSQL, MySQL/MariaDB, and SQLite through native adapters and runs on Node.js and Bun. Install the `pawql` package and the database driver for your chosen database.
+
+## Start here
+
+- [Getting Started](./orm/getting-started) — install PawQL, connect a database, configure logging and connection pools.
+- [Schema](./orm/schema) — define tables, columns, defaults, and database types.
+- [Querying](./orm/querying) — select, filter, join, group, paginate, and use subqueries.
+- [Mutations](./orm/mutations) — insert, update, delete, returning, and upsert.
+
+## Guides
+
+Browse the [complete guide index](./orm). It covers migrations, transactions, relations, soft deletes, seeders, validation, hooks, streaming, introspection, testing, plugins, adapters, timeouts, and the API reference.
+
+## At a glance
+
+```ts
+import { connect } from 'pawql';
+
+const db = await connect({
+  users: {
+    id: { type: Number, primaryKey: true },
+    name: String,
+    isActive: { type: Boolean, default: true },
+  },
+}, 'postgres://user:pass@localhost:5432/mydb');
+
+const users = await db.query('users')
+  .where({ isActive: true })
+  .orderBy('name', 'ASC')
+  .limit(10)
+  .execute();
+```
+
+See [Adapters](./orm/adapters) for driver installation and dialect differences.

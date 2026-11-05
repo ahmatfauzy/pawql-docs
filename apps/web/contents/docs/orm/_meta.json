@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "adapters",
+    "title": "Adapters",
+    "nav": true
+  },
+  {
+    "slug": "api-reference",
+    "title": "API Reference",
+    "nav": true
+  },
+  {
+    "slug": "getting-started",
+    "title": "Getting Started",
+    "nav": true
+  },
+  {
+    "slug": "hooks",
+    "title": "Hooks / Middleware",
+    "nav": true
+  },
+  {
+    "slug": "introspection",
+    "title": "Schema Introspection",
+    "nav": true
+  },
+  {
+    "slug": "migrations",
+    "title": "Migrations",
+    "nav": true
+  },
+  {
+    "slug": "mutations",
+    "title": "Mutations (INSERT, UPDATE, DELETE)",
+    "nav": true
+  },
+  {
+    "slug": "plugins",
+    "title": "Plugin System",
+    "nav": true
+  },
+  {
+    "slug": "query-timeout",
+    "title": "Query Timeout",
+    "nav": true
+  },
+  {
+    "slug": "querying",
+    "title": "Querying Data",
+    "nav": true
+  },
+  {
+    "slug": "relations",
+    "title": "Relations",
+    "nav": true
+  },
+  {
+    "slug": "schema",
+    "title": "Schema Definition",
+    "nav": true
+  },
+  {
+    "slug": "seeders",
+    "title": "Seeders",
+    "nav": true
+  },
+  {
+    "slug": "soft-delete",
+    "title": "Soft Delete",
+    "nav": true
+  },
+  {
+    "slug": "streaming",
+    "title": "Streaming Data",
+    "nav": true
+  },
+  {
+    "slug": "testing",
+    "title": "Testing",
+    "nav": true
+  },
+  {
+    "slug": "transactions",
+    "title": "Transactions",
+    "nav": true
+  },
+  {
+    "slug": "validation",
+    "title": "Parameter Validation",
+    "nav": true
+  }
+]
