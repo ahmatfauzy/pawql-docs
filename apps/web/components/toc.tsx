@@ -9,7 +9,10 @@ export function TableOfContents({ toc }: { toc: TocItem[] }) {
 
   useEffect(() => {
     const headings = toc
-      .map((item) => ({ item, element: document.querySelector(item.href) }))
+      .map((item) => ({
+        item,
+        element: document.getElementById(item.href.startsWith("#") ? item.href.slice(1) : item.href),
+      }))
       .filter((entry): entry is { item: TocItem; element: Element } => Boolean(entry.element));
     if (!headings.length) return;
 
