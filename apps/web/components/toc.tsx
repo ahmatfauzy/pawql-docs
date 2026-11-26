@@ -1,7 +1,32 @@
+"use client";
+
 import { TocItem } from "@ariadocs/react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export function TableOfContents({ toc }: { toc: TocItem[] }) {
+  const [activeHref, setActiveHref] = useState<string | null>(null);
+
+  useEffect(() => {
+    const headings = toc
+      .map((item) => ({ item, element: document.querySelector(item.href) }))
+      .filter((entry): entry is { item: TocItem; element: Element } => Boolean(entry.element));
+    if (!headings.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (visible) setActiveHref(`#${visible.target.id}`);
+      },
+      { rootMargin: "-12% 0px -72% 0px" },
+    );
+
+    headings.forEach(({ element }) => observer.observe(element));
+    return () => observer.disconnect();
+  }, [toc]);
+
   if (!toc.length) return null;
   return (
     <aside className="not-prose fixed right-20 top-14 hidden w-48 xl:block">
@@ -12,7 +37,8 @@ export function TableOfContents({ toc }: { toc: TocItem[] }) {
             <li key={item.href} style={{ paddingLeft: (item.depth - 1) * 12 }}>
               <Link
                 href={item.href}
-                className="text-muted-foreground hover:text-foreground"
+                aria-current={activeHref === item.href ? "location" : undefined}
+                className={`block rounded-sm hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${activeHref === item.href ? "font-medium text-foreground" : "text-muted-foreground"}`}
               >
                 {item.value}
               </Link>

@@ -1,4 +1,21 @@
 import Link from "next/link";
+import { CopyButton } from "@/components/copy-button";
+
+const installCommand = "npm install pawql";
+const exampleCode = `import { connect } from "pawql";
+
+const db = await connect({
+  users: {
+    id: { type: Number, primaryKey: true },
+    name: String,
+    isActive: { type: Boolean, default: true },
+  },
+}, process.env.DATABASE_URL!);
+
+const users = await db.query("users")
+  .where({ isActive: true })
+  .select("id", "name")
+  .execute();`;
 
 const features = [
   {
@@ -39,7 +56,8 @@ export default function Page() {
 
         <div className="mb-7 inline-flex items-center gap-3 rounded-lg border bg-muted/50 px-4 py-3 font-mono text-sm">
           <span className="text-muted-foreground">$</span>
-          <span>npm install pawql</span>
+          <span>{installCommand}</span>
+          <CopyButton value={installCommand} label="Copy install command" />
         </div>
 
         <div className="flex flex-col justify-center gap-3 sm:flex-row">
@@ -61,24 +79,12 @@ export default function Page() {
       </section>
 
       <section className="mt-16 rounded-xl border bg-muted/30 p-5 text-left sm:p-6">
-        <div className="mb-3 text-sm font-medium text-muted-foreground">
-          A typed query, from schema to result
+        <div className="mb-3 flex items-center justify-between gap-3 text-sm font-medium text-muted-foreground">
+          <span>A typed query, from schema to result</span>
+          <CopyButton value={exampleCode} label="Copy example" />
         </div>
         <pre className="overflow-x-auto text-sm leading-6">
-          <code>{`import { connect } from "pawql";
-
-const db = await connect({
-  users: {
-    id: { type: Number, primaryKey: true },
-    name: String,
-    isActive: { type: Boolean, default: true },
-  },
-}, process.env.DATABASE_URL!);
-
-const users = await db.query("users")
-  .where({ isActive: true })
-  .select("id", "name")
-  .execute();`}</code>
+          <code>{exampleCode}</code>
         </pre>
       </section>
 

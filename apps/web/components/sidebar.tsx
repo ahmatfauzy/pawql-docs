@@ -12,13 +12,16 @@ import {
   SheetTrigger,
 } from "@workspace/ui/components/sheet";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 function SidebarContent({
   items,
   onLinkClick,
+  pathname,
 }: {
   items: NavItem[];
   onLinkClick?: () => void;
+  pathname: string;
 }) {
   const visibleItems = items.filter((item) => item.nav);
 
@@ -32,7 +35,8 @@ function SidebarContent({
             ) : (
               <Link
                 href={`/docs${item.href}`}
-                className="font-medium hover:text-foreground"
+                className={`block rounded-sm font-medium hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${pathname === `/docs${item.href}` ? "text-foreground" : "text-muted-foreground"}`}
+                aria-current={pathname === `/docs${item.href}` ? "page" : undefined}
                 onClick={onLinkClick}
               >
                 {item.title}
@@ -46,7 +50,8 @@ function SidebarContent({
                     <li key={child.href}>
                       <Link
                         href={`/docs${child.href}`}
-                        className="text-muted-foreground hover:text-foreground"
+                        className={`block rounded-sm hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${pathname === `/docs${child.href}` ? "font-medium text-foreground" : "text-muted-foreground"}`}
+                        aria-current={pathname === `/docs${child.href}` ? "page" : undefined}
                         onClick={onLinkClick}
                       >
                         {child.title}
@@ -64,6 +69,7 @@ function SidebarContent({
 
 export function Sidebar({ items }: { items: NavItem[] }) {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const pathname = usePathname();
   return (
     <>
       {/* Mobile Sidebar with Sheet */}
@@ -84,6 +90,7 @@ export function Sidebar({ items }: { items: NavItem[] }) {
           </SheetHeader>
           <SidebarContent
             items={items}
+            pathname={pathname}
             onLinkClick={() => setIsSheetOpen(false)}
           />
         </SheetContent>
@@ -91,7 +98,7 @@ export function Sidebar({ items }: { items: NavItem[] }) {
 
       {/* Desktop Sidebar */}
       <aside className="not-prose fixed left-20 top-14 hidden w-56 lg:block">
-        <SidebarContent items={items} />
+        <SidebarContent items={items} pathname={pathname} />
       </aside>
     </>
   );
