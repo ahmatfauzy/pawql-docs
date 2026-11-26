@@ -13,7 +13,7 @@ export function TableOfContents({ toc }: { toc: TocItem[] }) {
         item,
         element: document.getElementById(item.href.startsWith("#") ? item.href.slice(1) : item.href),
       }))
-      .filter((entry): entry is { item: TocItem; element: Element } => Boolean(entry.element));
+      .filter((entry): entry is { item: TocItem; element: HTMLElement } => Boolean(entry.element));
     if (!headings.length) return;
 
     const observer = new IntersectionObserver(
